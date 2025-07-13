@@ -19,11 +19,6 @@ public class ProductoController {
         this.productService = productService;
     }
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hola, bienvenido";
-    }
-
     @GetMapping()
     public List<Producto> getProductos(){
         return productService.getProductos();

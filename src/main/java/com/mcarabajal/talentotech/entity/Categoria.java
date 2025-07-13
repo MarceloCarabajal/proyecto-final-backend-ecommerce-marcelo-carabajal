@@ -1,5 +1,6 @@
 package com.mcarabajal.talentotech.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,6 @@ public class Categoria {
     private String nombre;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    @OrderBy("nombre ASC")
-    @ToString.Exclude
+    @JsonManagedReference
     private List<Producto> productos;
 }
