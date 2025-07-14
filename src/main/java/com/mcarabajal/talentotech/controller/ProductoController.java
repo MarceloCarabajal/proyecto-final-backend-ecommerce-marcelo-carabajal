@@ -1,7 +1,9 @@
 package com.mcarabajal.talentotech.controller;
 
+import com.mcarabajal.talentotech.dto.ProductoRequest;
 import com.mcarabajal.talentotech.entity.Producto;
 import com.mcarabajal.talentotech.service.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,15 +38,15 @@ public class ProductoController {
     }
 
     @PostMapping
-    public Producto createProducto(@RequestBody Producto producto){
-        Producto productoCreado = productService.createProducto(producto);
-        return productoCreado;
+    public ResponseEntity<Producto> createProducto(@Valid @RequestBody ProductoRequest request){
+        Producto productoCreado = productService.createProducto(request);
+        return ResponseEntity.ok(productoCreado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto productoActualizado){
-        Producto productoExistente = productService.updateProducto(id, productoActualizado);
-        return productoExistente != null ? ResponseEntity.ok(productoExistente) : ResponseEntity.notFound().build();
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @Valid @RequestBody ProductoRequest request){
+        Producto actualizado = productService.updateProducto(id, request);
+        return actualizado != null ? ResponseEntity.ok(actualizado) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
